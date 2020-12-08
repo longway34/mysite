@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Markdown from 'react-markdown';
 import {Spinner} from 'react-bootstrap';
 
-class AboutComponent extends Component {
+class PosterPageComponent extends Component {
     constructor(props){
         super(props);
 
@@ -18,4 +18,4 @@ class AboutComponent extends Component {
     }
 }
 
-export default AboutComponent;
+export default PosterPageComponent;

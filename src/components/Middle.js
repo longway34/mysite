@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route, withRouter } from 'react-router';
 import AboutPageContainer from '../containers/AboutPageContainer';
+import PosterPageContainer from '../containers/PosterPageContainer';
 
 import AboutLeftMenu from './AboutLeftMenu';
 
@@ -18,9 +19,8 @@ function Middle(props) {
                     <div className="d-flex flex-column">
                         <Switch>
                             <Route exact path="/about" component={AboutPageContainer} />
+                            <Route exact path="/projects/poster"  component={PosterPageContainer}/>
 
-                            <Route exact path="/projects/poster"  render={()=>
-                                <div className='App-content'>Здесь нечто при ссылке pojects/poster</div>} />
                             <Route exact path="/projects/kkz"  render={()=>
                                 <div className='App-content'>Здесь нечто при ссылке projects/kkz</div>} />
                             <Route exact path="/projects/separator"  render={()=>

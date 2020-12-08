@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReadmePageConponent from '../components/ReadmePageComponent';
 
-class AboutPageContainer extends Component {
+class PosterPageContainer extends Component {
     constructor(props){
         super(props);
 
@@ -10,7 +10,7 @@ class AboutPageContainer extends Component {
             readme: null,
             isWaiting: props.isWaiting ? props.isWaiting : true
         };
-        this.readmePath = "https://raw.githubusercontent.com/longway34/mysite/master/README.md";
+        this.readmePath = "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_client/master/README.md";
     }
 
     componentDidMount(){
@@ -31,4 +31,4 @@ class AboutPageContainer extends Component {
     }
 }
 
-export default AboutPageContainer;
+export default PosterPageContainer;
