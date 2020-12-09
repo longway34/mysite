@@ -1,7 +1,7 @@
-# МНОГО что умею, но  
-# МАЛО, кто об этом знает...
+# <strong><em>МНОГО что умею, но</em></strong>  
+# <strong<em>МАЛО, кто об этом знает...</em></strong>
 
-![Это я..., точнее мы](https://raw.githubusercontent.com/longway34/mysite/master/src/components/with_bear.JPG)
+![Это Я ;-)...](https://raw.githubusercontent.com/longway34/mysite/master/src/components/with_bear.JPG)
 
 Здесь я попытался собрать и донести до Вас одну мысль... Точнее не одну, конечно... Много их у меня.
 В общем, после долгих лет работы над интересными проектами, они (интересные проекты) точему-то в последенее время заканчиваются.

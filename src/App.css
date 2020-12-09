@@ -25,6 +25,10 @@
   text-align: initial;
 }
 
+.Readme-div > p > img{
+  max-width: 100%;
+  padding: 15px;
+}
 .App-left-menu{
   font-size: 16pt;
   text-align: left;

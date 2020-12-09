@@ -18,11 +18,11 @@ const SiteTitleLogo = () => {
             <Row > 
                 <Col xs={2}>
                     {/* <Image className='App-logo' src={logo} style={{width: '64pt', padding: '5pt'}}/>  */}
-                    <Image className='App-logo' src={logo}/> 
+                    <Image className='App-logo' src={logo} style={{marginRight: '50px'}}/> 
                 </Col >
                 {/* <Col xs={10} style={{display: "flex", alignItems: 'center', fontSize: '24pt', fontWeight: 'bold', fontFamily: "Helvetika"}}> */}
                 <Col xs={10} className='App-header-text-column'>
-                Всем привет! Это я..., точнее мы...<Image src={smile} className='App-header-smile'/>
+                Всем привет! Это я{' '}<Image src={smile} className='App-header-smile'/>...
                 </Col>
             </Row>
         </Container>
