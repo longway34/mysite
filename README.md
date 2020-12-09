@@ -1,5 +1,5 @@
-# <strong><em>МНОГО что умею, но</em></strong>  
-# <strong<em>МАЛО, кто об этом знает...</em></strong>
+# МНОГО что умею, но  
+# МАЛО, кто об этом знает...
 
 ![Это Я ;-)...](https://raw.githubusercontent.com/longway34/mysite/master/src/components/with_bear.JPG)
 
