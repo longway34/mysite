@@ -10,7 +10,8 @@ class PosterPageContainer extends Component {
             readme: null,
             isWaiting: props.isWaiting ? props.isWaiting : true
         };
-        this.readmePath = "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_client/master/README.md";
+        this.readmePath = props.mode == 'client' ? "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_client/master/README.md" :
+        "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_server/master/README.md";
     }
 
     componentDidMount(){

@@ -10,7 +10,20 @@ class KKZPageContainer extends Component {
             readme: null,
             isWaiting: props.isWaiting ? props.isWaiting : true
         };
-        this.readmePath = "https://raw.githubusercontent.com/longway34/kkz/main/README.md";
+        switch(this.props.mode){
+            case 'md':
+                this.readmePath = "https://raw.githubusercontent.com/longway34/kkz/main/md_release_5/Readme.md";
+                break;
+            case 'web':
+                this.readmePath = "https://raw.githubusercontent.com/longway34/kkz/main/web_release_5/Readme.md";
+                break;
+            case 'ui':
+                this.readmePath = "https://raw.githubusercontent.com/longway34/kkz/main/Web-07_1/Readme.md";
+                break;
+            default:
+                this.readmePath = "https://raw.githubusercontent.com/longway34/kkz/main/md_release_5/Readme.md";
+                break;
+            }
     }
 
     componentDidMount(){

@@ -6,30 +6,40 @@ import AboutPageContainer from '../containers/AboutPageContainer';
 import PosterPageContainer from '../containers/PosterPageContainer';
 import SeparatorPageContainer from '../containers/SeparatorPageContainer';
 import KKZPageContainer from '../containers/KKZPageContainer'
+import CPPAnonseContainer from '../containers/CPPAnonseContainer'
 
-import AboutLeftMenu from './AboutLeftMenu';
+import NodejsAnonseContainer from '../containers/NodejsAnonseContainer';
+
+import MainLeftMenu from './MainLeftMenu';
+
+/**
+ * Основной маршрутизатор страниц
+ * @param {*} props 
+ */
 
 function Middle(props) {
     return (
         <Container fluid>
             <Row>
                 <Col xs={3}>
-                    <AboutLeftMenu />
+                    <MainLeftMenu />
                 </Col>
                 <Col xs={9}>
 
                     <div className="d-flex flex-column">
                         <Switch>
                             <Route exact path="/about" component={AboutPageContainer} />
-                            <Route exact path="/projects/poster"  component={PosterPageContainer}/>
-                            <Route exact path="/projects/kkz" component={KKZPageContainer} />
+                            <Route exact path="/projects/poster_s" render={(props) => (<PosterPageContainer {...props} mode='server' />)} />
+                            <Route exact path="/projects/poster_c" render={(props) => (<PosterPageContainer {...props} mode='client' />)} />
+                            <Route exact path="/projects/kkz_md" render={(props) => (<KKZPageContainer {...props} mode='md' />)} />
+                            <Route exact path="/projects/kkz_web" render={(props) => (<KKZPageContainer {...props} mode='web' />)} />
+                            <Route exact path="/projects/kkz_ui" render={(props) => (<KKZPageContainer {...props} mode='ui' />)} />
                             <Route exact path="/projects/separator"  component={SeparatorPageContainer} />
-                            <Route exact path="/sources/nodejs"  render={()=>
-                                <div className='App-content'>Здесь нечто при ссылке sources/nodejs</div>} />
-                            <Route exact path="/sources/cpp"  render={()=>
-                                <div className='App-content'>Здесь нечто при ссылке sources/cpp</div>} />
-                            <Route exact path="/sources/qt"  render={()=>
-                                <div className='App-content'>Здесь нечто при ссылке sources/qt</div>} />
+                            <Route exact path="/sources/nodejs"  component={NodejsAnonseContainer} />
+
+                            <Route exact path="/sources/cpp"  component={CPPAnonseContainer} />
+                            <Route exact path="/sources/qt"  component={SeparatorPageContainer} />
+                            <Route exact path="/sources/js"  render={(props) => (<KKZPageContainer {...props} mode='ui' />)} />
                         </Switch>
                     </div>
                 </Col>

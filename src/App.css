@@ -69,3 +69,23 @@
     transform: rotate(360deg);
   }
 }
+
+.anonseImagesDiv{
+  float: left;
+  width: 20%;
+  padding: 10px;
+}
+.anonseImagesDiv > img{
+  /* margin: 10px; */
+  max-width: 100%;
+} 
+.anonseCardHeader {
+  font-size: 2em;
+  font-weight: bold;
+  color: rgb(61, 1, 1);
+}
+.anonseParagraph {
+  text-align: justify;
+}
+
+
