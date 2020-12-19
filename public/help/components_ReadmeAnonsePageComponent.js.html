@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ReadmeAnonsePageComponent.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ReadmeAnonsePageComponent.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Формирование страниц анонсов нескольких README.md файлов проектов
+ * @module ReadmeAnonsePageComponent
+ */
+import React from 'react';
+import { Card, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+/**
+ * Структура параметров для создания анонса
+ * @typedef {Object} AnonseParams
+ * @property {number} [numParagrapts=1] - число параметров, входящих в анонс
+ * @property {number} [firstParagraph=0] - номер первого параграфа, начиная с 0
+ * @property {number} [numImages=1] - число картинок, входящих в анонс
+ * @property {number} [firstImage=0] - номер первой картинки, начиная с 0
+ * @property {String} [url=''] - URL для создания переходов. http://... - ссылкой будет весь текст анонса. Иначе только заголовок.
+ */
+/**
+ * Структура параметров для создания анонса для паредачи в компонент
+ * @typedef {Object} AnonseReactParams
+ * @property {String[]} readmes - массив текстов README.md файлов проектов
+ * @property {AnonseParams[]} params - массив доп. параметров для формирования анонсов
+ * 
+ */
+const makeAnonse = require('./Helper').makeAnonse;
+/**
+ * Создает контекст анонса в ввиде массива bootstrap-элементов Card
+ * @function context
+ * @param {String[]} anonses - массив текстов Readme.md файлов проектов
+ * @param {AnonseParams[]} params - массив структур с параметрами включения для каждого Readme.md файла
+ * @returns {String} - Массив блоков bootstrap Card для рендеринга
+ */
+const context = (anonses, params) => {
+    return anonses.map((a, index) =>{
+        let html = makeAnonse(a, params[index].numParagraphs, params[index].firstParagraph, params[index].numImages, params[index].firstImage, params[index].url.startsWith("http") ? params[index].url : '');
+        let ret = [];
+        if(params[index].header &amp;&amp; params[index].header.length > 0){
+            ret.push(&lt;Card.Header className="anonseCardHeader">
+                        &lt;Card.Link href="#" to={!params[index].url.startsWith('http') ? params[index].url : ''} as={Link} >{params[index].header}&lt;/Card.Link>
+                    &lt;/Card.Header>);
+        }
+        ret.push(&lt;Card.Body>
+                    &lt;div dangerouslySetInnerHTML={{__html: html }} />
+                &lt;/Card.Body>);
+        if(params[index].footer &amp;&amp; params[index].header.footer > 0){
+            ret.push(&lt;Card.Footer>
+                        {params[index].footer}
+                    &lt;/Card.Footer>);
+        }
+
+        return (
+            &lt;Card>
+                {ret}
+            &lt;/Card>
+        )
+
+    })
+}
+/**
+ * Представляет &lt;ReadmeAnonsePageComponent \/> React компонент, для формирования html контента анонса страниц
+ * @function ReadmeAnonsePageComponent
+ * @param {Object} props - параметры, передаваемые компоненту
+ * @property {AnonseReactParams} props.params - параметры формирования анонса
+ * @property {String[]} props.readmes - массив текстов README.md файлов проектов
+ * @property {boolean} props.isWaiting - признак готовности отображения: true - ожидание; false - отображать страницу
+ * @returns {String} - сформированная страника анонсов для рендеринга
+ */
+const ReadmeAnonsePageComponent = props => {
+    let res = null;
+    if(!props.isWaiting){
+        res = context(props.readmes, props.params);
+        // res = (&lt;CardDeck> 
+        //         {context(props.readmes, props.params)};
+        //     &lt;/CardDeck>
+        // )
+    } else {
+        res = (&lt;Spinner animation="border" variant="info" />)
+    }
+    return (&lt;div>{res}&lt;/div>)
+
+};
+
+export default ReadmeAnonsePageComponent;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-Header.html">Header</a></li><li><a href="module-Helper.html">Helper</a></li><li><a href="module-HelpPageComponent.html">HelpPageComponent</a></li><li><a href="module-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-MainLeftMenu.html">MainLeftMenu</a></li><li><a href="module-Middle.html">Middle</a></li><li><a href="module-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-ReadmeAnonsePageComponent.html">ReadmeAnonsePageComponent</a></li><li><a href="module-ReadmePageComponent.html">ReadmePageComponent</a></li><li><a href="module-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul><h3>Classes</h3><ul><li><a href="LinkDuo.html">LinkDuo</a></li><li><a href="module-AboutPageContainer-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-AboutPageContainer-PosterPageContainer.html">PosterPageContainer</a></li><li><a href="module-CPPAnonseContainer-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-HelpPageContainer-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-NodejsAnonseContainer-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-SeparatorPageContainer-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Dec 20 2020 00:16:08 GMT+0700 (Красноярск, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

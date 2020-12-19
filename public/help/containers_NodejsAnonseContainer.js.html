@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: containers/NodejsAnonseContainer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: containers/NodejsAnonseContainer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Прием файла README.md из GitHub репозитария проектов, написанных на NodeJS.
+ * @module NodejsAnonseContainer
+ */
+import React, { Component } from 'react';
+import axios from 'axios';
+import ReadmeAnonsePageComponent from '../components/ReadmeAnonsePageComponent';
+// import ReadmePageComponent from './ReadmePageComponent';
+
+/**
+ * Представляет &lt;NodejsAnonseContainer \/> React компонент. Обработка полученных README.md файлов и формирование входных параметров для компонента &lt;ReadmeAnonsePageComponent \/>
+ * @class NodejsAnonseContainer
+ * @param {*} props - входные параметры (не используются)
+ */
+class NodejsAnonseContainer extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            readme: [],
+            isWaiting: props.isWaiting ? props.isWaiting : true
+        };
+        this.readmePaths = ["https://raw.githubusercontent.com/longway34/mysite/master/README.md",
+                           "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_server/master/README.md",
+                           "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_client/master/README.md"];
+        this.readmeParams = [
+            {firstParagraph: 0, numParagraphs: 5, firstImage: 0, numImages: 1, 
+                url: '/about',
+                header: 'Этот забавный сайт...'},
+            {firstParagraph: 1, numParagraphs: 2, firstImage: 0, numImages: 1, 
+               url: '/projects/poster_s',
+                header: 'Poster (серверная часть)'},
+            {firstParagraph: 1, numParagraphs: 2, firstImage: 1, numImages: 2, 
+                url: '/projects/poster_c',
+                header: 'Poster (клиентская часть)'}
+        ];
+    }
+
+    componentDidMount(){
+        this.readmePaths.forEach((path, index) =>{
+            axios.get(this.readmePaths[index])
+            .then((response) => {
+                let tArray = this.state.readme.slice();
+                tArray.push(response.data)
+                let w = this.readmePaths.length &lt; tArray.length ? true : false;
+                this.setState({readme: tArray, isWaiting: w});
+            })
+            .catch((err) => {
+                let tArray = this.state.readme.slice();
+                tArray.push("&lt;h1>Error loading README.MD page...&lt;/h1>")
+                let w = this.readmePaths.length &lt; tArray.length ? true : false;
+                this.setState({readme: tArray, isWaiting: w});
+            })
+        })
+    }
+
+    render(){ 
+        return (&lt;ReadmeAnonsePageComponent isWaiting={this.state.isWaiting} readmes={this.state.readme} params={this.readmeParams} />)
+    };
+}
+
+export default NodejsAnonseContainer;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-Header.html">Header</a></li><li><a href="module-Helper.html">Helper</a></li><li><a href="module-HelpPageComponent.html">HelpPageComponent</a></li><li><a href="module-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-MainLeftMenu.html">MainLeftMenu</a></li><li><a href="module-Middle.html">Middle</a></li><li><a href="module-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-ReadmeAnonsePageComponent.html">ReadmeAnonsePageComponent</a></li><li><a href="module-ReadmePageComponent.html">ReadmePageComponent</a></li><li><a href="module-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul><h3>Classes</h3><ul><li><a href="LinkDuo.html">LinkDuo</a></li><li><a href="module-AboutPageContainer-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-AboutPageContainer-PosterPageContainer.html">PosterPageContainer</a></li><li><a href="module-CPPAnonseContainer-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-HelpPageContainer-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-NodejsAnonseContainer-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-SeparatorPageContainer-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Dec 20 2020 00:16:08 GMT+0700 (Красноярск, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

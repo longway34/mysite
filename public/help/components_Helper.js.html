@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Helper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Helper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Модуль для определения вспомогалельных функций
+ * @module Helper
+ */
+import { Link } from 'react-router-dom';
+import ReactHtmlParser, { convertNodeToElement,  processNodes  } from "react-html-parser";
+import {NavLink, Nav, NavItem} from 'react-bootstrap';
+import LinkDuo from './LinkDuo';
+
+const MarkdownIt = require('markdown-it');
+var mdReader = new MarkdownIt();
+var cheerio = require('cheerio');
+// var jquery = require('jquery');
+
+
+/**
+ * Cоздает на основе параметров html текст для страницы-анонса
+ * @function makeAnons 
+ * @requires MarkdownIt
+ * @requires cheerio
+ * 
+ * @param {String} readme - html текст для создания страницы-анонса
+ * @param {number} [numParagraphs=1] - количество параграфов 
+ * @param {number} [firstParagraph=0] - первый параграф для ананса, начиная с 0
+ * @param {number} [numImages=1] - количество картинок для создания миниатюры анонса
+ * @param {number} [firstImage=0] - первая картинка для создания миниатюры анонса, начиная с 0
+ * @param {String} [url=''] - возможная ссылка для перехода (http://... - весь анонс-ссылка иначе - местная ссылка для загаловка)
+ * @returns {string} - html фрагмент анонса
+ */
+export const makeAnonse = (readme, numParagraphs=1, firstParagraph=0, numImages=1, firstImage=0, url='') =>{
+    let html = mdReader.render(readme);
+    let $ = cheerio.load(html);
+    let outParagraph = [];
+    let outImages = [];
+    let paragraphCount = 0;
+    $('p, h1, h2, h3, h4, h5, h6').each((index, paragraph) => {
+        if(paragraph.firstChild.type === 'text'){
+            if(index >= firstParagraph){
+                if(++paragraphCount > numParagraphs){
+                    return;
+                } else {
+                    outParagraph.push(paragraph);
+                }
+            }
+        }
+    })
+    let imagesCount = 0;
+    $('img').each((index, image) =>{
+        if(index >= firstImage){
+            if(++imagesCount > numImages){
+                return;
+            } else {
+                outImages.push(image);
+            }
+        }
+    })
+    $ = url === '' ? cheerio.load('&lt;div id="root"/>') : cheerio.load(`&lt;div id="root">&lt;a href=${url} target="_blank" rel="nofollow noreferrer"/>&lt;/div>`);
+    let rootDiv = url ? $('#root > a') : $('#root');
+    let imgsDiv = $('&lt;div />');
+    imgsDiv.addClass('anonseImagesDiv');
+    outImages.forEach((img, index) =>{
+        imgsDiv.append(img);
+    })
+    rootDiv.append(imgsDiv);
+    outParagraph.forEach((p, index) =>{
+        rootDiv.append(p);
+    });
+
+    return $.html('#root');
+
+}
+/**
+ * Возвращает имя файла из строки URL
+ * @function getFileFromUrl 
+ * @param {String} path - строка URL
+ * @returns {String} - имя файла
+ */
+export const getFileFromUrl = (path) => {
+    while(path.startsWith('/')) path = path.substr(1);
+
+    let ind = path.lastIndexOf('/');
+    if(ind &lt; 0){
+        return path;
+    }
+    return path.substr(ind+1);
+}
+
+const getBody = (html) => {
+    let firstNav = html.indexOf('&lt;nav>');
+    let lastNav = html.indexOf('&lt;/nav>');
+
+    let firstBody = html.indexOf('&lt;body>')
+    let lastBody = html.indexOf('&lt;/body>');
+    
+    let res = { 
+        nav: `&lt;div class='nav'>${html.substr(firstNav+5, lastNav-firstNav-5)}&lt;/div>`,
+        prefix: `&lt;div class='help-page-prefix'>${html.substr(firstBody+6, firstNav - firstBody-6)}&lt;/div>`,
+        suffix: `&lt;div class='help-page-suffix'>${html.substr(lastNav+6, lastBody - lastNav - 4)}&lt;/div>`
+    }
+    return res;
+}
+
+const transformModule = (node, index) => {
+    if(node.type === 'tag' &amp;&amp; node.name === 'img'){
+        node.attribs.class = 'help-page-image';
+        node.attribs.width = '100%';
+        return convertNodeToElement(node, index, transformFooter);
+    }
+    if (node.type === "tag" &amp;&amp; node.name === "ul") {
+        return &lt;Nav>{processNodes(node.children, transform)}&lt;/Nav>
+    }
+  
+    if (node.type === "tag" &amp;&amp; node.name === "li") {
+        return &lt;NavItem>{processNodes(node.children, transform)}&lt;/NavItem>
+    }
+  
+    if (node.type === "tag" &amp;&amp; node.name === "a") {
+      let file = node.attribs.href.startsWith('http') ? node.attribs.href : getFileFromUrl(node.attribs.href);
+      if(file.indexOf('#') > 0){
+          return null;
+      }
+      
+      return &lt;LinkDuo to={file} href={file} as={Link}>{processNodes(node.children, transform)}&lt;/LinkDuo>
+    }
+}
+
+const transform = (node, index) =>{
+    if (node.type === "tag" &amp;&amp; node.name === "div" &amp;&amp; node.attribs.class === 'nav') {
+        node.attribs.class = 'help-page-nav';
+        return convertNodeToElement(node, index, transform);
+    }
+  
+    if (node.type === "tag" &amp;&amp; node.name === "ul") {
+        return &lt;Nav className="flex-column">{processNodes(node.children, transform)}&lt;/Nav>
+    }
+  
+    if (node.type === "tag" &amp;&amp; node.name === "li") {
+        return &lt;NavItem>{processNodes(node.children, transform)}&lt;/NavItem>
+    }
+  
+    if (node.type === "tag" &amp;&amp; node.name === "a") {
+      let file = getFileFromUrl(node.attribs.href);
+      if(file.indexOf('#') > 0){
+          return null;
+      }
+      return &lt;NavLink to={file} href={file} as={Link}>{processNodes(node.children, transform)}&lt;/NavLink>
+    }
+  
+}
+
+const transformFooter = (node, index) =>{
+    if(node.type === 'tag' &amp;&amp; node.name === 'img'){
+        node.attribs.class = 'help-page-image';
+        node.attribs.width = '100%';
+        return convertNodeToElement(node, index, transformFooter);
+    }
+    if(node.type === 'tag' &amp;&amp; node.name === 'footer'){
+        return &lt;div class='help-page-suffix'>{processNodes(node.children, transformFooter)}&lt;/div>
+    }
+    if(node.type === 'tag' &amp;&amp; node.name === 'br'){
+        return null;
+    }
+}
+
+const options = {
+    decodeEntities: true,
+    transform: transform
+}
+
+const optionsModule = {
+    decodeEntities: true,
+    transform: transformModule
+}
+
+
+const optionFooter = {
+    decodeEntities: true,
+    transform: transformFooter
+}
+/**
+ * Анализирует полученных html фрагмент и адаптирует его для представления в рамках React-router компонентов
+ * @function makeHelpPage
+ * @param {*} html - текст html страницы, для представления
+ * @return {Object} - компонент для вставки на страницу
+ */
+export const makeHelpPage = (html) =>{
+    let body = getBody(html);
+
+    let res = [];
+    res.push(ReactHtmlParser(body.prefix, optionsModule));
+    res.push(ReactHtmlParser(body.nav, options));
+    res.push(ReactHtmlParser(body.suffix, optionFooter));
+
+    return (&lt;div id='help-page'>&lt;div id='help-page-middle'>{res[0]}{res[1]}&lt;/div>{res[2]}&lt;/div>);
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-Header.html">Header</a></li><li><a href="module-Helper.html">Helper</a></li><li><a href="module-HelpPageComponent.html">HelpPageComponent</a></li><li><a href="module-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-MainLeftMenu.html">MainLeftMenu</a></li><li><a href="module-Middle.html">Middle</a></li><li><a href="module-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-ReadmeAnonsePageComponent.html">ReadmeAnonsePageComponent</a></li><li><a href="module-ReadmePageComponent.html">ReadmePageComponent</a></li><li><a href="module-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul><h3>Classes</h3><ul><li><a href="LinkDuo.html">LinkDuo</a></li><li><a href="module-AboutPageContainer-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-AboutPageContainer-PosterPageContainer.html">PosterPageContainer</a></li><li><a href="module-CPPAnonseContainer-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-HelpPageContainer-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-NodejsAnonseContainer-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-SeparatorPageContainer-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Dec 20 2020 00:16:08 GMT+0700 (Красноярск, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,11 +1,17 @@
+/**
+ * Прием файла README.md из GitHub репозитария проектов, написанных на NodeJS.
+ * @module NodejsAnonseContainer
+ */
 import React, { Component } from 'react';
-import { Card, CardDeck } from 'react-bootstrap';
 import axios from 'axios';
 import ReadmeAnonsePageComponent from '../components/ReadmeAnonsePageComponent';
 // import ReadmePageComponent from './ReadmePageComponent';
 
-const makeAnonse = require('../components/Helper');
-
+/**
+ * Представляет <NodejsAnonseContainer \/> React компонент. Обработка полученных README.md файлов и формирование входных параметров для компонента <ReadmeAnonsePageComponent \/>
+ * @class NodejsAnonseContainer
+ * @param {*} props - входные параметры (не используются)
+ */
 class NodejsAnonseContainer extends Component {
     constructor(props){
         super(props);
@@ -19,15 +25,12 @@ class NodejsAnonseContainer extends Component {
                            "https://raw.githubusercontent.com/longway34/Poster_auto_suppliers_client/master/README.md"];
         this.readmeParams = [
             {firstParagraph: 0, numParagraphs: 5, firstImage: 0, numImages: 1, 
-                // url: 'https://github.com/longway34/mysite', 
                 url: '/about',
                 header: 'Этот забавный сайт...'},
             {firstParagraph: 1, numParagraphs: 2, firstImage: 0, numImages: 1, 
-                // url: 'https://github.com/longway34/Poster_auto_suppliers_server', 
-                url: '/projects/poster_s',
+               url: '/projects/poster_s',
                 header: 'Poster (серверная часть)'},
             {firstParagraph: 1, numParagraphs: 2, firstImage: 1, numImages: 2, 
-                // url: 'https://github.com/longway34/Poster_auto_suppliers_client', 
                 url: '/projects/poster_c',
                 header: 'Poster (клиентская часть)'}
         ];

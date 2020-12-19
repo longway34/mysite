@@ -1,14 +1,20 @@
+/**
+ * Левая навигационная панель
+ * @module MainLeftMenu
+ */
 import React from 'react';
-import { Card, ListGroup, ListGroupItem, Nav, NavItem, NavLink } from 'react-bootstrap';
+import { Card, Nav, NavItem, NavLink } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 
 /**
- * Создает навигационную панель в левой части страниц
- * @param {*} props 
+ * Представляет <HelpPageComponent \/> React компонент, для отображения левой панели навигации
+ * @param {Object} props 
+ * @prop {Object} props.location
+ * @prop {String} props.location.pathname - свойство React-router, представляющий текущую страницу
  */
 function MainLeftMenu(props) {
     return (
-        <din>
+        <div>
             <Card>
                 <Card.Header>Проекты</Card.Header>
                 <Card.Body>
@@ -34,7 +40,7 @@ function MainLeftMenu(props) {
                     </Nav>
                 </Card.Body>
             </Card>
-        </din>
+        </div>
     );
 }
 

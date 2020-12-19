@@ -1,13 +1,16 @@
+/**
+ * Создает верхнюю навигационную панель в заголовке страниц
+ * @module Header
+ */
 import React from 'react';
-import { Card, Col, Container, Figure, Image, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { Col, Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import SiteTitle from './SiteTitleLogo';
 
-import logo from './mylogo.png';
-
 /**
- * Создает навигационную панель в заголовке страниц
- * @param {*} props 
+ * Представляет <Header \/> React компонент, для создания верхней панели навигации
+ * @function Header
+ * @param {*} props - не используется
  */
 
 const Header = (props) => {
@@ -21,8 +24,6 @@ const Header = (props) => {
                                 <SiteTitle />
                             </Nav.Item>
                         </Nav>
-                        {/* <Nav.Item> */}
-                        {/* <SiteTitle /> */}
                         <Nav fill variant='tabs' defaultActiveKey='/about'>
                             <Nav.Item>
                                 <Nav.Link eventKey='/about' to='/about' as={Link}>К чему все это...</Nav.Link>
@@ -41,12 +42,10 @@ const Header = (props) => {
                                 <NavDropdown.Item eventKey='/sources/qt' to='/sources/qt' as={Link}>Qt</NavDropdown.Item>
                                 <NavDropdown.Item eventKey='/sources/js' to='/sources/js' as={Link}>JavaScript</NavDropdown.Item>
                             </NavDropdown>
+                            <Nav.Item>
+                                <Nav.Link eventKey='/help' to='/help' as={Link}>API</Nav.Link>
+                            </Nav.Item>
                         </Nav>
-                        {/* </Nav.Item> */}
-                        {/* <Nav.Item> */}
-
-                        {/* </Nav.Item> */}
-                        {/* </Nav> */}
                     </Navbar>
                 </Col>
             </Row>

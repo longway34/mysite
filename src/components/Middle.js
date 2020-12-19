@@ -1,7 +1,10 @@
+/**
+ * @module Middle
+ */
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
-import { Route, withRouter } from 'react-router';
+import { Route, withRouter, Redirect } from 'react-router';
 import AboutPageContainer from '../containers/AboutPageContainer';
 import PosterPageContainer from '../containers/PosterPageContainer';
 import SeparatorPageContainer from '../containers/SeparatorPageContainer';
@@ -11,13 +14,14 @@ import CPPAnonseContainer from '../containers/CPPAnonseContainer'
 import NodejsAnonseContainer from '../containers/NodejsAnonseContainer';
 
 import MainLeftMenu from './MainLeftMenu';
+import HelpPageContainer from '../containers/HelpPageContainer';
 
 /**
- * Основной маршрутизатор страниц
- * @param {*} props 
+ * Представляет <Middle \/> React компонент, для отображения левой панели навигации и основной контент страницы,
+ * Получаемой при ресолве пути React-router 
+ * @function
  */
-
-function Middle(props) {
+function Middle() {
     return (
         <Container fluid>
             <Row>
@@ -28,6 +32,9 @@ function Middle(props) {
 
                     <div className="d-flex flex-column">
                         <Switch>
+                            <Route exact path="/" render={
+                                (props) => (<Redirect to='/about' {...props} />)
+                                } />
                             <Route exact path="/about" component={AboutPageContainer} />
                             <Route exact path="/projects/poster_s" render={(props) => (<PosterPageContainer {...props} mode='server' />)} />
                             <Route exact path="/projects/poster_c" render={(props) => (<PosterPageContainer {...props} mode='client' />)} />
@@ -40,6 +47,13 @@ function Middle(props) {
                             <Route exact path="/sources/cpp"  component={CPPAnonseContainer} />
                             <Route exact path="/sources/qt"  component={SeparatorPageContainer} />
                             <Route exact path="/sources/js"  render={(props) => (<KKZPageContainer {...props} mode='ui' />)} />
+                            <Route exact path="/help" render={
+                                (props) => (<Redirect to='/help/index.html' {...props} />)
+                                } />
+                            <Route exact path="/help/*" render={
+
+                                (props) => (<HelpPageContainer {...props} url={props.match.url}/>)
+                                } />
                         </Switch>
                     </div>
                 </Col>

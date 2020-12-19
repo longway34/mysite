@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Header.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Header.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Создает верхнюю навигационную панель в заголовке страниц
+ * @module Header
+ */
+import React from 'react';
+import { Col, Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { Link, withRouter } from 'react-router-dom';
+import SiteTitle from './SiteTitleLogo';
+
+/**
+ * Представляет &lt;Header \/> React компонент, для создания верхней панели навигации
+ * @function Header
+ * @param {*} props - не используется
+ */
+
+const Header = (props) => {
+    return (
+        &lt;Container fluid>
+            &lt;Row>
+                &lt;Col>
+                    &lt;Navbar className='bg-light justify-content-between' style={{ backgroundColor: '#e3ffff' }}>
+                        &lt;Nav>
+                            &lt;Nav.Item>
+                                &lt;SiteTitle />
+                            &lt;/Nav.Item>
+                        &lt;/Nav>
+                        &lt;Nav fill variant='tabs' defaultActiveKey='/about'>
+                            &lt;Nav.Item>
+                                &lt;Nav.Link eventKey='/about' to='/about' as={Link}>К чему все это...&lt;/Nav.Link>
+                            &lt;/Nav.Item>
+                            &lt;NavDropdown title='Проекты'>
+                                &lt;NavDropdown.Item eventKey='/projects/poster_s' to='/projects/poster_s' as={Link}>Poster (сервер)&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/projects/poster_c' to='/projects/poster_c' as={Link}>Poster (клиент)&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/projects/kkz_md' to='/projects/kkz_md' as={Link}>Метеллодитектор (управление)&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/projects/kkz_web' to='/projects/kkz_web' as={Link}>Метеллодитектор (http сервер)&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/projects/kkz_ui' to='/projects/kkz_ui' as={Link}>Метеллодитектор (клиент)&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/projects/separator' to='/projects/separator' as={Link}>Сепаратор&lt;/NavDropdown.Item>
+                            &lt;/NavDropdown>
+                            &lt;NavDropdown title='Исходники'>
+                                &lt;NavDropdown.Item eventKey='/sources/nodejs' to='/sources/nodejs' as={Link}>NodeJS&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/sources/cpp' to='/sources/cpp' as={Link}>C++&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/sources/qt' to='/sources/qt' as={Link}>Qt&lt;/NavDropdown.Item>
+                                &lt;NavDropdown.Item eventKey='/sources/js' to='/sources/js' as={Link}>JavaScript&lt;/NavDropdown.Item>
+                            &lt;/NavDropdown>
+                            &lt;Nav.Item>
+                                &lt;Nav.Link eventKey='/help' to='/help' as={Link}>API&lt;/Nav.Link>
+                            &lt;/Nav.Item>
+                        &lt;/Nav>
+                    &lt;/Navbar>
+                &lt;/Col>
+            &lt;/Row>
+        &lt;/Container>);
+};
+
+export default withRouter(Header);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-Header.html">Header</a></li><li><a href="module-Helper.html">Helper</a></li><li><a href="module-HelpPageComponent.html">HelpPageComponent</a></li><li><a href="module-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-MainLeftMenu.html">MainLeftMenu</a></li><li><a href="module-Middle.html">Middle</a></li><li><a href="module-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-ReadmeAnonsePageComponent.html">ReadmeAnonsePageComponent</a></li><li><a href="module-ReadmePageComponent.html">ReadmePageComponent</a></li><li><a href="module-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul><h3>Classes</h3><ul><li><a href="LinkDuo.html">LinkDuo</a></li><li><a href="module-AboutPageContainer-AboutPageContainer.html">AboutPageContainer</a></li><li><a href="module-AboutPageContainer-PosterPageContainer.html">PosterPageContainer</a></li><li><a href="module-CPPAnonseContainer-CPPAnonseContainer.html">CPPAnonseContainer</a></li><li><a href="module-HelpPageContainer-HelpPageContainer.html">HelpPageContainer</a></li><li><a href="module-KKZPageContainer-KKZPageContainer.html">KKZPageContainer</a></li><li><a href="module-NodejsAnonseContainer-NodejsAnonseContainer.html">NodejsAnonseContainer</a></li><li><a href="module-SeparatorPageContainer-SeparatorPageContainer.html">SeparatorPageContainer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Dec 20 2020 00:16:08 GMT+0700 (Красноярск, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

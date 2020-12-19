@@ -1,11 +1,4 @@
-.App {
-  /* text-align: center; */
-}
-
 .App-logo {
-  /*height: 40vmin; */
-  /* pointer-events: none; */
-  /* height: "1em"; */
   width: 64pt;
   padding: 5pt;
 }
@@ -14,11 +7,6 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-content{
-  /* height: '100%'; */
-  /* align-items: center; */
 }
 
 .Readme-div{
@@ -44,6 +32,8 @@
 
 .App-header-smile{
   width: 32pt;
+  margin-left: 20px;
+  animation: App-logo-spin infinite 5s linear;
 }
 
 .App-header {
@@ -69,6 +59,28 @@
     transform: rotate(360deg);
   }
 }
+.help-page-nav{
+  float: right;
+  max-width: 30%;
+  padding: 20px;
+}
+
+.help-page-prefix{
+  width: 70%;
+  float: left;
+}
+
+.help-page-suffix{
+  float: left;
+  font-size: 12px;
+  position:relative;                  
+  bottom:0;                          
+  right:0;                           
+}
+
+.help-page-image{
+  padding: 10px;
+}
 
 .anonseImagesDiv{
   float: left;
@@ -76,7 +88,6 @@
   padding: 10px;
 }
 .anonseImagesDiv > img{
-  /* margin: 10px; */
   max-width: 100%;
 } 
 .anonseCardHeader {

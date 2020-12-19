@@ -1,7 +1,16 @@
+/**
+ * Прием файла README.md из GitHub репозитария проекта Separator
+ * @module SeparatorPageContainer
+ */
 import React, { Component } from 'react';
 import axios from 'axios';
 import ReadmePageConponent from '../components/ReadmePageComponent';
 
+/**
+ * Представляет <SeparatorPageContainer \/> React компонент. Обработка полученных README.md файла и формирование входных параметров для компонента <ReadmeAnonsePageComponent \/>
+ * @class SeparatorPageContainer
+ * @param {*} [props] - входные параметры (не истользуются)
+  */
 class SeparatorPageContainer extends Component {
     constructor(props){
         super(props);

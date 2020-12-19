@@ -1,7 +1,17 @@
+/**
+ * Прием файла README.md из GitHub репозитария различных частей проекта 'Металлодитектор'
+ * @module KKZPageContainer
+ */
 import React, { Component } from 'react';
 import axios from 'axios';
 import ReadmePageConponent from '../components/ReadmePageComponent';
 
+/**
+ * Представляет <KKZPageContainer \/> React компонент. Обработка полученных README.md файлов и формирование входных параметров для компонента <ReadmeAnonsePageComponent \/>
+ * @class KKZPageContainer
+ * @param {Object} [props] - входные параметры 
+ * @param {('md|web|ui')} [props.mode='md'] - для получения README.md:  "Программы управления", "Интерфейсной программы" и "Пользовательского интерфейса" соответственно
+ */
 class KKZPageContainer extends Component {
     constructor(props){
         super(props);

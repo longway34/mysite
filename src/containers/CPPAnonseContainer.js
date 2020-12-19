@@ -1,11 +1,16 @@
+/**
+ * Прием файла README.md из GitHub репозитария проектов, написанных на С++.
+ * @module CPPAnonseContainer
+ */
 import React, { Component } from 'react';
-import { Card, CardDeck } from 'react-bootstrap';
 import axios from 'axios';
 import ReadmeAnonsePageComponent from '../components/ReadmeAnonsePageComponent';
-// import ReadmePageComponent from './ReadmePageComponent';
 
-const makeAnonse = require('../components/Helper');
-
+/**
+ * Представляет <CPPAnonseContainer \/> React компонент. Обработка полученных README.md файлов и формирование входных параметров для компонента <ReadmeAnonsePageComponent \/>
+ * @class CPPAnonseContainer
+ * @param {*} [props] - входные параметры (не используются)
+ */
 class CPPAnonseContainer extends Component {
     constructor(props){
         super(props);
@@ -22,11 +27,9 @@ class CPPAnonseContainer extends Component {
                 url: '/projects/kkz_md',
                 header: 'Металлодитектор (программа управления)'},
             {firstParagraph: 0, numParagraphs: 7, firstImage: 0, numImages: 1, 
-                // url: 'https://github.com/longway34/Poster_auto_suppliers_server', 
                 url: '/projects/kkz_web',
                 header: 'Металлодитектор (многопоточный http сервер)'},
             {firstParagraph: 0, numParagraphs: 2, firstImage: 0, numImages: 2, 
-                // url: 'https://github.com/longway34/Poster_auto_suppliers_client', 
                 url: '/projects/kkz_ui',
                 header: 'Сепаратор'}
         ];

@@ -1,7 +1,16 @@
+/**
+ * Прием файла README.md из GitHub репозитария проекта этого сайта
+ * @module AboutPageContainer
+ */
 import React, { Component } from 'react';
 import axios from 'axios';
 import ReadmePageConponent from '../components/ReadmePageComponent';
 
+/**
+ * Представляет <AboutPageContainer \/> React компонент. Обработка полученного README.md файла и формирование входных параметров для компонента <ReadmePageConponent \/>
+ * @class AboutPageContainer
+ * @param {*} [props] - входные параметры (не используются)
+ */
 class AboutPageContainer extends Component {
     constructor(props){
         super(props);

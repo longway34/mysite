@@ -1,19 +1,33 @@
-import React from 'react';
-import { Card, CardDeck, Spinner } from 'react-bootstrap';
-import { Link, withRouter } from 'react-router-dom';
 /**
- * @typedef {Object} Params
- * @param {number} numParagrapts - число параметров, входящих в анонс
- * @param {number} firstParagraph - номер первого параграфа, начиная с 0
- * @param {number} numImages - число картинок, входящих в анонс
- * @param {number} firstImage - номер первой картинки, начиная с 0
- * @param {string} url - URL для создания переходов. http://... - ссылкой будет весь текст анонса. Иначе только заголовок.
+ * Формирование страниц анонсов нескольких README.md файлов проектов
+ * @module ReadmeAnonsePageComponent
+ */
+import React from 'react';
+import { Card, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+/**
+ * Структура параметров для создания анонса
+ * @typedef {Object} AnonseParams
+ * @property {number} [numParagrapts=1] - число параметров, входящих в анонс
+ * @property {number} [firstParagraph=0] - номер первого параграфа, начиная с 0
+ * @property {number} [numImages=1] - число картинок, входящих в анонс
+ * @property {number} [firstImage=0] - номер первой картинки, начиная с 0
+ * @property {String} [url=''] - URL для создания переходов. http://... - ссылкой будет весь текст анонса. Иначе только заголовок.
+ */
+/**
+ * Структура параметров для создания анонса для паредачи в компонент
+ * @typedef {Object} AnonseReactParams
+ * @property {String[]} readmes - массив текстов README.md файлов проектов
+ * @property {AnonseParams[]} params - массив доп. параметров для формирования анонсов
+ * 
  */
 const makeAnonse = require('./Helper').makeAnonse;
 /**
- * Создает контекст анонса в ввиде bootstrap-элемента Card
- * @param {string[]} anonses - массив текстов Readme.md файлов проектов
- * @param {Params[]} params - массив структур с параметрами включения для каждого Readme.md файла
+ * Создает контекст анонса в ввиде массива bootstrap-элементов Card
+ * @function context
+ * @param {String[]} anonses - массив текстов Readme.md файлов проектов
+ * @param {AnonseParams[]} params - массив структур с параметрами включения для каждого Readme.md файла
+ * @returns {String} - Массив блоков bootstrap Card для рендеринга
  */
 const context = (anonses, params) => {
     return anonses.map((a, index) =>{
@@ -41,16 +55,19 @@ const context = (anonses, params) => {
 
     })
 }
-
-
+/**
+ * Представляет <ReadmeAnonsePageComponent \/> React компонент, для формирования html контента анонса страниц
+ * @function ReadmeAnonsePageComponent
+ * @param {Object} props - параметры, передаваемые компоненту
+ * @property {AnonseReactParams} props.params - параметры формирования анонса
+ * @property {String[]} props.readmes - массив текстов README.md файлов проектов
+ * @property {boolean} props.isWaiting - признак готовности отображения: true - ожидание; false - отображать страницу
+ * @returns {String} - сформированная страника анонсов для рендеринга
+ */
 const ReadmeAnonsePageComponent = props => {
     let res = null;
     if(!props.isWaiting){
         res = context(props.readmes, props.params);
-        // res = (<CardDeck> 
-        //         {context(props.readmes, props.params)};
-        //     </CardDeck>
-        // )
     } else {
         res = (<Spinner animation="border" variant="info" />)
     }
