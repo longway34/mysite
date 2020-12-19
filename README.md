@@ -1,4 +1,4 @@
-# МНОГО что умею, но  
+# Я МНОГО что умею, но  
 # МАЛО, кто об этом знает...
 
 ![Это Я ;-)...](https://raw.githubusercontent.com/longway34/mysite/master/src/components/with_bear.JPG)
